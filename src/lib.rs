@@ -42,9 +42,19 @@
 #![warn(missing_docs)]
 #![doc(html_root_url = "https://docs.rs/bae_types/0.14.0")]
 
+/// Type used for mathematical calculations that need to be fast (e.g. sample calculation).
+pub type FastMath = f32;
+
+/// Type used for mathematical calculations that need to be accurate (e.g. some forms of fine-tuned parameter control).
+pub type AccurateMath = f64;
+
 /// Type to perform infrequent mathematical operations with when accuracy is needed.
-pub type MathT = f64;
+#[derive(Debug, Default, Copy, Clone, From<AccurateMath>, Into<AccurateMath>)]
+pub struct Math(pub AccurateMath);
+
 /// Type to calculate samples with.
-pub type SampleT = f32;
+#[derive(Debug, Default, Copy, Clone, From<FastMath>, Into<FastMath>)]
+pub struct Sample(pub FastMath);
+
 /// Shorthand for a vector containing sample data.
-pub type SampleTrackT = Vec<SampleT>;
+pub type SampleTrack = Vec<Sample>;
